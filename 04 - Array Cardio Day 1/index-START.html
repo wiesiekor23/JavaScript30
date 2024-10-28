@@ -35,31 +35,101 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
+
+    const boulevards = ["Boulevard Malesherbes",
+"Boulevard Marguerite-de-Rochechouart",
+"Boulevard Montmartre",
+"Boulevard du Montparnasse",]
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    function bornIn16thCentury(array) {
+        return array.filter(inv => (inv.year > 1499 && inv.year < 1600));
+    }
+
+    //console.log(bornIn16thCentury(inventors));
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+
+    function inventorsNames(array) {
+      return array.map(inventor => `${inventor.first} ${inventor.last}`);
+    }
+
+    //console.log(inventorsNames(inventors));
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    function sortInventors(array) {
+      return array.sort((a, b) => a.year - b.year);
+    }
+
+    //console.log(sortInventors(inventors));
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
+    function sumOfAges(array) {
+      return array.reduce((sumOfAge, inv) => sumOfAge + (inv.passed - inv.year), 0);
+    }
+
+    //console.log(sumOfAges(inventors));
+
     // 5. Sort the inventors by years lived
+
+    function sortAge(array) {
+      return array.sort((a, b) => (a.passed - a.year) - (b.passed - b.year));
+    }
+
+    //console.log(sortAge(inventors));
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    function boulevardsWithDe(array) {
+      return array.filter(boulevard => boulevard.includes("de"));
+    }
+
+    //console.log(boulevardsWithDe(boulevards));1
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    function sortByLastName(array) {
+      return array.map(person => person.split(","))
+      .sort((personA, personB) => personA[1].localeCompare(personB[1]))
+      .map(person => person.join(","));
+    }
+
+    //console.log(sortByLastName(people));
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    function sumOfInstances(array) {
+      let secondArray = [];
+      array.forEach(element => {
+        if (!secondArray.includes(element)) {
+          let instances = array.reduce((instances, obj) => {
+            if(element === obj) {
+              instances++;
+            }
+            return instances;
+          }, 0);
+          if(!(secondArray.includes(element))) {
+            secondArray.push(element, instances);
+          }
+        }
+        
+      });
+      return secondArray;
+    }
+
+    console.table(sumOfInstances(data));
 
   </script>
 </body>
